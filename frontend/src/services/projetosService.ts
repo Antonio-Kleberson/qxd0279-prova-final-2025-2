@@ -1,17 +1,20 @@
 import { api } from "./api";
 
+type ProjetosResponse = {
+  data: any[];
+  meta: { page: number; limit: number; total: number; totalPages: number };
+};
+
 class ProjetosService {
-  
-  async getAll() {
-    try {
-      return await api.get('/api/projetos');
-    } catch(e) {
-      console.error(`Você ainda precisa tratar o error`, e)
-      throw e
-    }
-    
-  
+  async getAll(page = 1, limit = 10, search = "", sort = "", order: "asc" | "desc" = "asc") {
+    const params: any = { page, limit };
+
+    if (search) params.search = search;
+    if (sort) params.sort = sort;
+    if (order) params.order = order;
+
+    return await api.get<ProjetosResponse>("/api/projetos", { params });
   }
 }
 
-export const useProjetosService = () => new ProjetosService()
+export const useProjetosService = () => new ProjetosService();

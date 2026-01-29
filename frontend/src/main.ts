@@ -8,8 +8,6 @@ import { useAuthStore } from './stores/auth'
 const app = createApp(App)
 
 app.use(createPinia())
-const authStore = useAuthStore()
-authStore.tryToLogin()
 
 app.use(router)
 

@@ -5,6 +5,6 @@ import { ensureAuthenticated } from '../../middlewares/ensureAuthenticated'
 const routes = Router()
 const controller = new DashboardController()
 
-routes.get('/', ensureAuthenticated, controller.index)
+routes.post('/', ensureAuthenticated, controller.index.bind(controller))
 
 export default routes
